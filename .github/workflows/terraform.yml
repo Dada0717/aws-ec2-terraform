@@ -1,12 +1,10 @@
-name: Terraform CI/CD
+name: Terraform Destroy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:   # This allows you to trigger the workflow manually from GitHub
 
 jobs:
-  terraform:
+  terraform-destroy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,9 +25,5 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Plan
-        run: terraform plan
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
